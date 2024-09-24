@@ -5,6 +5,7 @@ import { SlotRoutes } from "../modules/solt/slot.route"
 import { BookingRoutes } from "../modules/booking/booking.route"
 import { AuthRouters } from "../modules/Auth/auth.route"
 import { PaymentRoutes } from "../modules/payment/payment.route"
+import { ReviewRoutes } from "../modules/review/review.route"
 
 
 const router = Router()
@@ -38,6 +39,10 @@ const moduleRoutes = [
         path: "/payment",
         route: PaymentRoutes,
       },
+      {
+        path: "/review",
+        route: ReviewRoutes
+      }
 ]
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route))

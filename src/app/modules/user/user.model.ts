@@ -4,7 +4,7 @@ import config from "../../config";
 import bcrypt from 'bcrypt';
 
 
-const userSchema = new Schema<TUser, UserModel>(
+export const userSchema = new Schema<TUser, UserModel>(
   {
     name:{
       type:String,

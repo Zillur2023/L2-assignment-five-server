@@ -4,27 +4,25 @@ import Service from "../service/service.model";
 import Slot from "../solt/slot.model";
 import AppError from "../../errors/AppError";
 import Booking from "./booking.model";
-import { JwtPayload } from "jsonwebtoken";
 import { initiatePayment } from "../payment/payment.utils";
 
 const createBookingIntoDB = async (bookingData: any) => {
-  const {  bookingInfo, ...userData } = bookingData;
-  console.log({bookingData})
+  const {  email, service, slot } = bookingData;
 
-  const isCustomerExists = await User.findOne({ email: userData.email });
+  const isUserExists = await User.findOne({ email });
 
-  if (!isCustomerExists) {
+  if (!isUserExists) {
     throw new AppError(httpStatus.NOT_FOUND, "This customer not found");
   }
 
-  const isServiceExists = await Service.findById(bookingInfo.service);
+  const isServiceExists = await Service.findById(service);
 
   if (!isServiceExists) {
     throw new AppError(httpStatus.NOT_FOUND, "This service not found");
   }
 
   const isSlotExists = await Slot.findByIdAndUpdate(
-    bookingInfo.slot,
+    slot,
     { isBooked: "booked" },
     { new: true }
   );
@@ -36,10 +34,10 @@ const createBookingIntoDB = async (bookingData: any) => {
   const transactionId = `TXN-${Date.now()}`;
 
   const booking = {
-    user: isCustomerExists?._id,
-    service: bookingInfo?.service,
-    slot: bookingInfo?.slot,
-    totalPrice:bookingInfo?.price,
+    user: isUserExists?._id,
+    service: isServiceExists?._id,
+    slot: isSlotExists?._id,
+    totalPrice:isServiceExists?.price,
     status: 'Pending',
     paymentStatus: 'Pending',
     transactionId
@@ -47,14 +45,13 @@ const createBookingIntoDB = async (bookingData: any) => {
 
   await Booking.create(booking)
 
-  // await booking.save()
   const paymentData = {
     transactionId,
-    totalPrice:bookingInfo.price,
-    customerName: userData.name,
-    customerEmail: userData.email,
-    customerPhone: userData.phone,
-    customerAddress: userData.address
+    totalPrice:isServiceExists?.price,
+    customerName: isUserExists?.name,
+    customerEmail: isUserExists?.email,
+    customerPhone: isUserExists?.phone,
+    customerAddress: isUserExists?.address
 }
 
   const paymentSession = await initiatePayment(paymentData)

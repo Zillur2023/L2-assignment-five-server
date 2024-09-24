@@ -1,29 +1,6 @@
 import { Schema, model } from "mongoose";
 import { IBooking } from "./booking.interface";
 
-// Define the Customer schema separately
-const customerSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    // validate: {
-    //   validator: (v: string) => /\S+@\S+\.\S+/.test(v), // simple email validation
-    //   message: (props: any) => `${props.value} is not a valid email!`,
-    // },
-  },
-  phone: {
-    type: String,
-    required: true,
-  },
-  address: {
-    type: String,
-    required: true,
-  },
-});
 
 // Define the Booking schema
 const bookingSchema = new Schema<IBooking>(
