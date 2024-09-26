@@ -2,7 +2,7 @@
 import { Model } from "mongoose";
 import { USER_ROLE } from "./user.constant";
 
-export interface TUser {
+export interface IUser {
   // _id?: Types.ObjectId;
   name: string;
   email: string;
@@ -16,9 +16,9 @@ export interface TUser {
   isDeleted: boolean;
 }
 
-export interface UserModel extends Model<TUser> {
+export interface UserModel extends Model<IUser> {
   //instance methods for checking if the user exist
-  isUserExistsByEmail(id: string): Promise<TUser>;
+  isUserExistsByEmail(id: string): Promise<IUser>;
   //instance methods for checking if passwords are matched
   isPasswordMatched(
     plainTextPassword: string,

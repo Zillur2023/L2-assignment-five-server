@@ -6,11 +6,14 @@ import Review from "./review.model"
 
 const createReviewIntoDB = async (payload:IReview) => {
     const { user,rating, feedback} = payload;
-    console.log({payload})
+    // console.log({payload})
 
-    // if ( !user || !rating || !feedback) {
-    //   throw new AppError(httpStatus.BAD_REQUEST,"Rating and feedback are required")
-    // }
+    if (!user || !feedback) {
+      throw new AppError(httpStatus.BAD_REQUEST,"User are required")
+    }
+    if (!rating || !feedback) {
+      throw new AppError(httpStatus.BAD_REQUEST,"Rating and feedback are required")
+    }
     const result = await Review.create(payload)
     
     return result

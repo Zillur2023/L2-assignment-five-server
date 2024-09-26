@@ -2,11 +2,11 @@ import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
 import { createToken, verifyToken } from "./auth.utils";
 import config from "../../config";
-import { TLoginUser } from "./auth.interface";
 import { User } from "../user/user.model";
+import { ILoginUser } from "./auth.interface";
 
 
-const loginUser = async (payload: TLoginUser) => {
+const loginUser = async (payload: ILoginUser) => {
   // checking if the user is exist
   const isUserExist = await User.isUserExistsByEmail(payload.email);
 

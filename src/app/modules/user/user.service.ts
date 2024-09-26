@@ -1,9 +1,9 @@
 import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
-import { TUser } from "./user.interface";
 import { User } from "./user.model";
+import { IUser } from "./user.interface";
 
-const createUserIntoDB = async (payload: TUser) => {
+const createUserIntoDB = async (payload: IUser) => {
   // checking if the user is exist
   const isUserExist = await User.isUserExistsByEmail(payload.email);
 

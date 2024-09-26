@@ -1,6 +1,6 @@
 
 
-export type TLoginUser = {
+export type ILoginUser = {
   email: string;
   password: string
 }
