@@ -19,7 +19,7 @@ const createReviewIntoDB = async (payload:IReview) => {
     return result
 }
 const getAllReviewsFromDB = async () => {
-    const result = await Review.find()
+    const result = await Review.find().populate("user")
     
     return result
 }
