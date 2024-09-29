@@ -6,7 +6,7 @@ import { WhyChooseUsServices } from "./whyChooseUs.service";
 
 const getAllWhyChooseUs = catchAsync(async (req, res) => {
     const result = await WhyChooseUsServices.getAllWhyChooseUsFromDB();
-    console.log({result})
+    // console.log({result})
   
     sendResponse(res, {
       statusCode: httpStatus.OK,

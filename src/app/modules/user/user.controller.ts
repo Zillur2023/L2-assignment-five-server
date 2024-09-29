@@ -5,14 +5,15 @@ import { UserServices } from "./user.service";
 
 const createUser = catchAsync(async (req, res) => {
   // const { password, student: studentData } = req.body;
-  console.log('createUser',req.body)
+  // console.log('createUser',req.body)
 
   const result = await UserServices.createUserIntoDB(req.body);
+  // console.log({result})
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User is created succesfully',
+    message: `User is created succesfully`,
     data: result,
   });
 });
@@ -51,9 +52,9 @@ const getUserById = catchAsync(async (req, res) => {
 })
 
 const updateUser = catchAsync(async (req, res) => {
-  console.log('userBody', req.body)
+  // console.log('userBody', req.body)
   const result = await UserServices.updateUserIntoDB(req.body);
-  console.log('userResult', result)
+  // console.log('userResult', result)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

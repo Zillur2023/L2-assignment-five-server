@@ -10,23 +10,22 @@ const router = Router();
 router.get("/max-price", ServiceControllers.getMaxPrice);
 router.post(
   "/create",
-  // auth(USER_ROLE.admin),
-  validateRequest(serviceValidations.createServiceValidationSchema),
+  auth(USER_ROLE.ADMIN),
+  // validateRequest(serviceValidations.createServiceValidationSchema),
   ServiceControllers.createService
 );
 
-router.get("/allServices", ServiceControllers.getAllServices);
+router.get("/all-service", ServiceControllers.getAllServices);
 
 router.get("/:id", ServiceControllers.getSingleService);
 
 router.put(
   "/:id",
-  auth(USER_ROLE.admin),
-  validateRequest(serviceValidations.updateServiceValidationSchema),
+  auth(USER_ROLE.ADMIN),
   ServiceControllers.updateSingleService
 );
-router.put("/update/:id", ServiceControllers.updateService);
-router.delete("/delete/:id", ServiceControllers.deleteSingleService);
+router.put("/update/:id",auth(USER_ROLE.ADMIN), ServiceControllers.updateService);
+router.delete("/delete/:id",auth(USER_ROLE.ADMIN), ServiceControllers.deleteSingleService);
 
 // router.delete(
 //   "/:id",

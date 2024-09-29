@@ -9,11 +9,11 @@ const router = Router();
 
 router.post(
   "/create",
-  // validateRequest(slotValidations.createSlotValidationSchema),
+  auth(USER_ROLE.ADMIN),
   SlotControllers.createSlot
 );
 router.get("/allSlots", SlotControllers.getAllSlots)
 router.get("/available/:service", SlotControllers.availableSlot);
-router.put("/update/:id", SlotControllers.updateSlot);
+router.put("/update/:id",auth(USER_ROLE.ADMIN), SlotControllers.updateSlot);
 
 export const SlotRoutes = router;

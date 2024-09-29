@@ -7,15 +7,15 @@ import { USER_ROLE } from "../user/user.constant";
 
 const router = Router();
 
-router.get("/all-bookings", BookingControllers.getAllBookings);
+router.get("/all-booking",auth(USER_ROLE.ADMIN,USER_ROLE.USER), BookingControllers.getAllBookings);
 router.post(
   "/create",
-  // auth(USER_ROLE.user),
+  auth(USER_ROLE.ADMIN,USER_ROLE.USER),
     // validateRequest(bookingValidations.createBookingValidationSchema),
   BookingControllers.createBooking
 );
 
 
-router.get("/my-booking/:email",auth(USER_ROLE.user),  BookingControllers.getMybooking)
+router.get("/my-booking/:email",  BookingControllers.getMybooking)
 
 export const BookingRoutes = router;

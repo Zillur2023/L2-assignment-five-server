@@ -10,7 +10,7 @@ const createSlot = catchAsync( async (req, res) => {
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: "Slots created successfully",
+        message: "Slots create successfully",
         data: result,
       });
 } )
@@ -39,9 +39,9 @@ const availableSlot = catchAsync( async (req, res) => {
 } )
 
 const updateSlot = catchAsync(async (req, res) => {
-  console.log('updateSlot', req.body)
+  // console.log('updateSlot', req.body)
   const result = await SlotServices.updateSlotIntoDB(req.body);
-  console.log('updateSlot', result)
+  // console.log('updateSlot', result)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

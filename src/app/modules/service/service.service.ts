@@ -25,7 +25,8 @@ const getAllServicesIntoDB = async (query: Record<string, unknown>) => {
     .search(["name"])
     .filter()
     .sort()
-    .fields();
+    .fields()
+    .paginate()
 
   const result = await allServiceQuery.modelQuery;
   const meta = await allServiceQuery.countTotal();

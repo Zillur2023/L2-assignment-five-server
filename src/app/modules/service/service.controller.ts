@@ -30,7 +30,7 @@ const getAllServices = catchAsync ( async ( req, res ) => {
 
 const getSingleService = catchAsync ( async ( req, res ) => {
   const {id} = req.params
-  console.log({id})
+  // console.log({id})
     const result = await ServiceServices.getSingleServiceIntoDB(id)
 
       sendResponse(res, {

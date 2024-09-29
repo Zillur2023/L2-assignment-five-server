@@ -1,10 +1,12 @@
 import { Schema, model } from "mongoose";
-import { TUser, UserModel } from "./user.interface";
+// import { TUser, UserModel } from "./user.interface";
 import config from "../../config";
 import bcrypt from 'bcrypt';
+import { IUser, IUserModel } from "./user.interface";
+import { USER_ROLE } from "./user.constant";
 
 
-export const userSchema = new Schema<TUser, UserModel>(
+export const userSchema = new Schema<IUser, IUserModel>(
   {
     name:{
       type:String,
@@ -33,8 +35,8 @@ export const userSchema = new Schema<TUser, UserModel>(
     },
     role: {
       type: String,
-      enum: [ "admin", "user"],
-      default: "user",
+      enum: Object.values(USER_ROLE),
+      default: USER_ROLE.USER,
     },
     address:{
       type:String,
@@ -92,4 +94,4 @@ userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
   return passwordChangedTime > jwtIssuedTimestamp;
 };
 
-export const User = model<TUser, UserModel>("User", userSchema);
+export const User = model<IUser, IUserModel>("User", userSchema);
