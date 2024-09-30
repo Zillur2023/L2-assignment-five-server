@@ -2,7 +2,7 @@
 
 export interface IWhyChooseUs {
     image: string;
-    name: string;
+    title: string;
     description: string;
  
   }

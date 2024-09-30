@@ -3,7 +3,7 @@
 import { Schema, model } from "mongoose";
 import { IWhyChooseUs } from "./whyChooseUs.interface";
 
-const whyChooseUsSchema = new Schema<ISlot>(
+const whyChooseUsSchema = new Schema<IWhyChooseUs>(
   {
     image: {
       type: String,
