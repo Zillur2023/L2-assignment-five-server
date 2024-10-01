@@ -66,7 +66,6 @@ const loginUser = async (payload: ILoginUser) => {
     user,
     accessToken,
     refreshToken,
-    needsPasswordChange: isUserExist?.needsPasswordChange,
   };
 };
 

@@ -10,10 +10,8 @@ import { IUserRole } from "../modules/user/user.interface";
 const auth = (...requiredRoles: IUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     // Token can be passed via Authorization header or cookies
-    console.log('{req.cookies}',req.cookies)
     let token = req.headers.authorization;
     // let token = req.cookies.refreshToken;
-    console.log({token})
 
     // Handle Bearer token in the Authorization header
     if (token && token.startsWith("Bearer ")) {

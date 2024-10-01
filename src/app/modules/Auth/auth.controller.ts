@@ -7,10 +7,8 @@ import { AuthServices } from "./auth.service";
 
 
 const loginUser = catchAsync(async (req, res) => {
-  // console.log('userLoginUser',req.body)
     const result = await AuthServices.loginUser(req.body);
-    // console.log({result})
-    const { user,refreshToken, accessToken, needsPasswordChange } = result;
+    const { user,refreshToken, accessToken } = result;
   
     res.cookie('refreshToken', refreshToken, {
       secure: config.NODE_ENV === 'production',
@@ -26,14 +24,12 @@ const loginUser = catchAsync(async (req, res) => {
       data: {
         user,
         token:accessToken,
-        // needsPasswordChange,
       },
     });
   });
 
   const refreshToken = catchAsync(async (req, res) => {
     const { refreshToken } = req.cookies;
-    // console.log('refreshToken',refreshToken)
     const result = await AuthServices.refreshToken(refreshToken);
   
     sendResponse(res, {
