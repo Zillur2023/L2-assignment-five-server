@@ -2,14 +2,14 @@ import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
 import Service from "../service/service.model";
 import Slot from "./slot.model";
-import { formatDate } from "./slot.utils";
-import { IAvailableSlot, ISlot } from "./slot.interface";
+// import { formatDate } from "./slot.utils";
+import {  ISlot } from "./slot.interface";
 
 const createSlotIntoDB = async (payload: ISlot) => {
-  console.log(payload)
-  const service = payload.service;
+  // const slotData: ISlot[] = await Slot.find({ service: payload.service, date: payload.date });
+
   // Fetch service duration
-  const serviceData = await Service.findById(service);
+  const serviceData = await Service.findById(payload.service);
   // console.log({serviceData})
   if (!serviceData) {
     throw new AppError(httpStatus.NOT_FOUND, "This service not found");
@@ -42,7 +42,7 @@ const createSlotIntoDB = async (payload: ISlot) => {
     const slotEnd = slotStart + duration;
 
     const slot = await Slot.create({
-      service,
+      service:payload.service,
       date: payload.date,
       startTime: `${Math.floor(slotStart / 60)
         .toString()
@@ -56,7 +56,7 @@ const createSlotIntoDB = async (payload: ISlot) => {
     result.push(slot);
   }
 
-  return result;
+  // return result;
 };
 
 const getAllSlotsFromDB = async () => {

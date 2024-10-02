@@ -17,7 +17,7 @@ const createServiceIntoDB = async (payload: IService) => {
 //     return result
 // }
 const getAllServicesIntoDB = async (query: Record<string, unknown>) => {
-  // const result = await Service.find({ isDeleted: { $ne: true } })
+  // Initialize QueryBuilder with the base query
   const allServiceQuery = new QueryBuilder(
     Service.find({ isDeleted: { $ne: true } }),
     query
@@ -25,12 +25,16 @@ const getAllServicesIntoDB = async (query: Record<string, unknown>) => {
     .search(["name"])
     .filter()
     .sort()
-    .fields()
-    .paginate()
+    .fields();
 
+  // Check if pagination parameters are provided
+  if (query.page && query.limit) {
+    allServiceQuery.paginate(); // Apply pagination only if page and limit exist
+  }
+
+  // Execute the query
   const result = await allServiceQuery.modelQuery;
-  const meta = await allServiceQuery.countTotal();
-  // const result = await Service.find()
+  const meta = await allServiceQuery.countTotal(); // Get meta info (total count, etc.)
 
   return {
     meta,
