@@ -8,26 +8,30 @@ const createPaymentIntoDB = async (transactionId: string, status: string) => {
 
   let result;
   let message;
-
+  let statusClass;
+  
   if (verifyResponse && verifyResponse.pay_status === "Successful") {
-    result = await Booking.findOneAndUpdate(
-      { transactionId },
-      {
-        paymentStatus: "Paid",
-      }
-    );
-    message = "Successfully Paid!"
+      result = await Booking.findOneAndUpdate(
+          { transactionId },
+          {
+              paymentStatus: "Paid",
+          }
+      );
+      message = "Successfully Paid!";
+      statusClass = "message-success"; // Success class
   } else {
-    message = "Payment Failed!"
+      message = "Payment Failed!";
+      statusClass = "message-failure"; // Failure class
   }
-
-  // const filePath = join(__dirname, './views/confirmation.html')
-  const filePath = join(__dirname, './views/confirmation.html')
-  let template = readFileSync(filePath,'utf-8')
-
-  template = template.replace(' {{message}} ', message)
-
-  // return result;
+  
+  // Load the HTML template
+  const filePath = join(__dirname, '../../../views/confirmation.html');
+  let template = readFileSync(filePath, 'utf-8');
+  
+  // Replace placeholders
+  template = template.replace('{{message}}', message);
+  template = template.replace('{{status}}', statusClass); // Add status class
+  
   return template;
 };
 
